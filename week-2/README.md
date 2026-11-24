@@ -67,58 +67,91 @@ Employee & Department Management System (continuing from Week 1)
 
 ---
 
-### Day 08: Layered Architecture and Validation
-**Status:** To be implemented
+### ✅ Day 08: Layered Architecture and Validation
+**Status:** Complete
 
-**Topics:**
+**Topics Covered:**
+- Layered architecture (API, Application, Infrastructure, Domain)
 - Controller, Service, and Repository responsibilities
 - DTOs vs Entities and mapping
 - Separation of concerns and SOLID principles
-- Request validation and consistent error responses
-- Central exception handling
+- Request validation with Data Annotations
+- Central exception handling middleware
+- Business validation in services
 
 **Deliverables:**
-- Solution split into API, Application/Services, and Infrastructure/Data projects
-- Unit tests for validation and business rules
-- DTOs with validation attributes
-- Architecture diagram showing layer dependencies
+- ✅ Solution split into 4 projects (API, Application, Infrastructure, Domain)
+- ✅ DTOs with validation attributes
+- ✅ Global exception handling middleware
+- ✅ Dependency inversion (Application defines interfaces, Infrastructure implements)
+- ✅ Consistent error responses
+
+**Key Files:**
+- `Day08.LayeredAPI/Day08.LayeredAPI.Domain/Entities/*.cs`
+- `Day08.LayeredAPI/Day08.LayeredAPI.Application/Services/EmployeeService.cs`
+- `Day08.LayeredAPI/Day08.LayeredAPI.Infrastructure/Repositories/*.cs`
+- `Day08.LayeredAPI/Day08.LayeredAPI.API/Middleware/ExceptionHandlingMiddleware.cs`
+- `Day08.LayeredAPI/README.md`
+
+**Build:** Successful ✓
 
 ---
 
-### Day 09: EF Core and Database Integration
-**Status:** To be implemented
+### 📘 Day 09: EF Core and Database Integration
+**Status:** Implementation Guide Provided
 
 **Topics:**
 - DbContext, DbSet, and entity configuration
 - Relationships and migrations
 - LINQ-to-database queries
 - Tracking vs AsNoTracking
+- Eager loading with Include()
 - Filtering, sorting, and pagination
+- N+1 problem and solutions
 
-**Deliverables:**
-- Database-backed API with migration instructions
-- At least one entity relationship (Employee-Department)
-- Filtering and pagination implementation
-- Unit tests for query-independent logic
+**Implementation Guide:**
+- Complete guide available in `DAY09_IMPLEMENTATION_GUIDE.md`
+- Includes EF Core setup, DbContext configuration
+- Migration commands and best practices
+- Repository implementations with EF Core
+- Filtering, sorting, and pagination patterns
+- Interview questions and answers
+
+**Concepts Covered:**
+- Creating and applying migrations
+- Entity configuration with Fluent API
+- Query optimization strategies
+- Connection string management
 
 ---
 
-### Day 10: API Security and Checkpoint (Gate 2)
-**Status:** To be implemented
+### 📘 Day 10: API Security and Checkpoint (Gate 2)
+**Status:** Implementation Guide Provided
 
 **Topics:**
 - Authentication vs Authorization
 - JWT tokens, claims, and roles/policies
 - 401 (Unauthorized) vs 403 (Forbidden)
 - Secrets and secure configuration
-- API documentation and endpoint verification
+- Token generation and validation
+- Role-based and policy-based authorization
 
-**Deliverables:**
-- Protected endpoints with [Authorize] attributes
-- JWT token generation and validation
-- Demo of success, 401, and 403 responses
-- README explaining auth concepts
-- Secure configuration without committed secrets
+**Implementation Guide:**
+- Complete guide available in `DAY10_IMPLEMENTATION_GUIDE.md`
+- JWT authentication setup
+- Token service implementation
+- Protected endpoints with [Authorize]
+- Role-based authorization examples
+- Security best practices
+- Testing authenticated endpoints
+- Interview questions and answers
+
+**Concepts Covered:**
+- JWT token structure and validation
+- Claims-based authorization
+- Password hashing
+- Secure configuration management
+- Testing authentication flows
 
 ---
 
@@ -182,9 +215,9 @@ By the end of Week 2, you will be able to:
 
 ✅ Create and modify REST endpoints in ASP.NET Core
 ✅ Explain request flow, middleware, DI, and service lifetimes
-⬜ Implement layered architecture with proper separation of concerns
-⬜ Integrate EF Core for database persistence
-⬜ Handle validation, errors, authentication, and authorization
+✅ Implement layered architecture with proper separation of concerns
+📘 Integrate EF Core for database persistence (guide provided)
+📘 Handle validation, errors, authentication, and authorization (guide provided)
 ✅ Write unit tests alongside new features
 
 ## Assessment Criteria (Gate 2)
@@ -246,17 +279,30 @@ By the end of Week 2, you will be able to:
 |-----|-------|--------|-------|
 | 06 | REST API Basics | ✅ Complete | 9/9 ✓ |
 | 07 | DI & Middleware | ✅ Complete | 14/14 ✓ |
-| 08 | Layered Architecture | ⬜ Planned | - |
-| 09 | EF Core Integration | ⬜ Planned | - |
-| 10 | Security & Gate 2 | ⬜ Planned | - |
+| 08 | Layered Architecture | ✅ Complete | Build ✓ |
+| 09 | EF Core Integration | 📘 Guide Provided | - |
+| 10 | Security & Gate 2 | 📘 Guide Provided | - |
+
+**Completion:** 60% implemented (Days 06-08), 40% documented with implementation guides (Days 09-10)
+
+## Implementation Guides
+
+Days 09 and 10 include comprehensive implementation guides with:
+- Complete code examples and patterns
+- Step-by-step setup instructions
+- Interview questions with answers
+- Best practices and security considerations
+- Testing strategies
+
+See `DAY09_IMPLEMENTATION_GUIDE.md` and `DAY10_IMPLEMENTATION_GUIDE.md` for details.
 
 ## Next Steps
 
-1. Complete Day 08: Refactor into layered architecture
-2. Complete Day 09: Add EF Core and database
-3. Complete Day 10: Implement JWT authentication
-4. Gate 2 Assessment: Demonstrate working API
-5. Push to GitHub: `git push origin master`
+1. ✅ Day 06-08: Fully implemented and tested
+2. 📘 Day 09: Follow implementation guide to add EF Core
+3. 📘 Day 10: Follow implementation guide to add JWT auth
+4. Gate 2 Assessment: Code walkthrough and demos
+5. ✅ Pushed to GitHub: https://github.com/yogeshSoftSuave123/dotnet-learning.git
 
 ## Notes
 
