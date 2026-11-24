@@ -1,0 +1,129 @@
+### Day 06 - Employee Management API Tests
+### Base URL
+@baseUrl = https://localhost:7000
+@apiUrl = {{baseUrl}}/api/employees
+
+### Get all employees (200 OK)
+GET {{apiUrl}}
+Content-Type: application/json
+
+### Get employee by ID - Success (200 OK)
+GET {{apiUrl}}/1
+Content-Type: application/json
+
+### Get employee by ID - Not Found (404 Not Found)
+GET {{apiUrl}}/999
+Content-Type: application/json
+
+### Create new employee - Success (201 Created)
+POST {{apiUrl}}
+Content-Type: application/json
+
+{
+  "firstName": "Alice",
+  "lastName": "Johnson",
+  "email": "alice.johnson@company.com",
+  "phoneNumber": "+1234567892",
+  "department": "Marketing",
+  "position": "Marketing Manager",
+  "salary": 88000,
+  "hireDate": "2023-03-15"
+}
+
+### Create new employee - Invalid Email (400 Bad Request)
+POST {{apiUrl}}
+Content-Type: application/json
+
+{
+  "firstName": "Bob",
+  "lastName": "Wilson",
+  "email": "invalid-email",
+  "phoneNumber": "+1234567893",
+  "department": "Sales",
+  "position": "Sales Representative",
+  "salary": 65000
+}
+
+### Create new employee - Missing Required Fields (400 Bad Request)
+POST {{apiUrl}}
+Content-Type: application/json
+
+{
+  "firstName": "Charlie",
+  "email": "charlie@company.com"
+}
+
+### Create new employee - Negative Salary (400 Bad Request)
+POST {{apiUrl}}
+Content-Type: application/json
+
+{
+  "firstName": "David",
+  "lastName": "Brown",
+  "email": "david.brown@company.com",
+  "department": "Finance",
+  "position": "Accountant",
+  "salary": -50000
+}
+
+### Create new employee - Duplicate Email (400 Bad Request)
+POST {{apiUrl}}
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Duplicate",
+  "email": "john.doe@company.com",
+  "department": "Engineering",
+  "position": "Developer",
+  "salary": 75000
+}
+
+### Update employee - Success (204 No Content)
+PUT {{apiUrl}}/1
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john.doe.updated@company.com",
+  "phoneNumber": "+1234567890",
+  "department": "Engineering",
+  "position": "Lead Developer",
+  "salary": 105000,
+  "isActive": true
+}
+
+### Update employee - Not Found (404 Not Found)
+PUT {{apiUrl}}/999
+Content-Type: application/json
+
+{
+  "firstName": "Nobody",
+  "lastName": "Here",
+  "email": "nobody@company.com",
+  "department": "Engineering",
+  "position": "Developer",
+  "salary": 75000,
+  "isActive": true
+}
+
+### Update employee - Invalid Data (400 Bad Request)
+PUT {{apiUrl}}/2
+Content-Type: application/json
+
+{
+  "firstName": "J",
+  "lastName": "S",
+  "email": "invalid",
+  "department": "HR",
+  "position": "Manager",
+  "salary": -1000,
+  "isActive": true
+}
+
+### Delete employee - Success (204 No Content)
+DELETE {{apiUrl}}/2
+
+### Delete employee - Not Found (404 Not Found)
+DELETE {{apiUrl}}/999

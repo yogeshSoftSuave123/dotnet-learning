@@ -1,0 +1,6 @@
+@Day07.DI.Middleware_HostAddress = http://localhost:5196
+
+GET {{Day07.DI.Middleware_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
