@@ -47,7 +47,7 @@ namespace Day08.LayeredAPI.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2026, 11, 25, 9, 43, 11, 660, DateTimeKind.Utc).AddTicks(1380),
+                            CreatedAt = new DateTime(2026, 11, 25, 9, 49, 3, 285, DateTimeKind.Utc).AddTicks(9461),
                             Description = "Software Development",
                             Location = "Building A",
                             Name = "Engineering"
@@ -55,7 +55,7 @@ namespace Day08.LayeredAPI.Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2026, 11, 25, 9, 43, 11, 660, DateTimeKind.Utc).AddTicks(1388),
+                            CreatedAt = new DateTime(2026, 11, 25, 9, 49, 3, 285, DateTimeKind.Utc).AddTicks(9464),
                             Description = "HR Operations",
                             Location = "Building B",
                             Name = "Human Resources"
@@ -63,7 +63,7 @@ namespace Day08.LayeredAPI.Infrastructure.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2026, 11, 25, 9, 43, 11, 660, DateTimeKind.Utc).AddTicks(1390),
+                            CreatedAt = new DateTime(2026, 11, 25, 9, 49, 3, 285, DateTimeKind.Utc).AddTicks(9466),
                             Description = "Marketing and Sales",
                             Location = "Building C",
                             Name = "Marketing"
@@ -146,6 +146,73 @@ namespace Day08.LayeredAPI.Infrastructure.Migrations
                             PhoneNumber = "+1234567891",
                             Position = "HR Manager",
                             Salary = 85000m
+                        });
+                });
+
+            modelBuilder.Entity("Day08.LayeredAPI.Domain.Entities.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("LastLoginAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("Username")
+                        .IsUnique();
+
+                    b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Email = "admin@company.com",
+                            IsActive = true,
+                            PasswordHash = "$2a$11$BczJ7KhXrF.rWEn8/aBY8.pjVS6KhUbG5xkTZJCZq6FRqXMPvMH7K",
+                            Role = "Admin",
+                            Username = "admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Email = "user@company.com",
+                            IsActive = true,
+                            PasswordHash = "$2a$11$BczJ7KhXrF.rWEn8/aBY8.pjVS6KhUbG5xkTZJCZq6FRqXMPvMH7K",
+                            Role = "User",
+                            Username = "user"
                         });
                 });
 

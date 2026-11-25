@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Day08.LayeredAPI.Application.DTOs;
 using Day08.LayeredAPI.Application.Interfaces;
@@ -5,12 +6,13 @@ using Day08.LayeredAPI.Application.Interfaces;
 namespace Day08.LayeredAPI.API.Controllers;
 
 /// <summary>
-/// Employee API controller
+/// Employee API controller (Day 10: Protected with JWT authentication)
 /// Thin controller that delegates to service layer
 /// Handles HTTP concerns (routing, status codes, model validation)
 /// </summary>
 [ApiController]
 [Route("api/[controller]")]
+[Authorize] // Day 10: Require authentication for all endpoints
 public class EmployeesController : ControllerBase
 {
     private readonly IEmployeeService _employeeService;
@@ -61,11 +63,13 @@ public class EmployeesController : ControllerBase
     }
 
     /// <summary>
-    /// Create a new employee
+    /// Create a new employee (Day 10: Admin/Manager only)
     /// </summary>
     [HttpPost]
+    [Authorize(Roles = "Admin,Manager")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     public async Task<ActionResult<EmployeeDto>> Create([FromBody] EmployeeCreateDto createDto)
     {
         // Model state validation happens automatically
@@ -79,12 +83,14 @@ public class EmployeesController : ControllerBase
     }
 
     /// <summary>
-    /// Update an existing employee
+    /// Update an existing employee (Day 10: Admin/Manager only)
     /// </summary>
     [HttpPut("{id}")]
+    [Authorize(Roles = "Admin,Manager")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     public async Task<ActionResult<EmployeeDto>> Update(int id, [FromBody] EmployeeUpdateDto updateDto)
     {
         if (!ModelState.IsValid)
@@ -97,11 +103,13 @@ public class EmployeesController : ControllerBase
     }
 
     /// <summary>
-    /// Delete an employee
+    /// Delete an employee (Day 10: Admin only)
     /// </summary>
     [HttpDelete("{id}")]
+    [Authorize(Roles = "Admin")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     public async Task<IActionResult> Delete(int id)
     {
         await _employeeService.DeleteEmployeeAsync(id);

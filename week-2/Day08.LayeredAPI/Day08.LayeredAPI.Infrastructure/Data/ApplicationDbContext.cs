@@ -12,6 +12,7 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<Employee> Employees => Set<Employee>();
     public DbSet<Department> Departments => Set<Department>();
+    public DbSet<User> Users => Set<User>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -38,6 +39,18 @@ public class ApplicationDbContext : DbContext
             entity.HasKey(d => d.Id);
             entity.Property(d => d.Name).IsRequired().HasMaxLength(100);
             entity.Property(d => d.Location).IsRequired().HasMaxLength(200);
+        });
+
+        // User configuration (Day 10: JWT Authentication)
+        modelBuilder.Entity<User>(entity =>
+        {
+            entity.HasKey(u => u.Id);
+            entity.Property(u => u.Username).IsRequired().HasMaxLength(50);
+            entity.HasIndex(u => u.Username).IsUnique();
+            entity.Property(u => u.Email).IsRequired().HasMaxLength(100);
+            entity.HasIndex(u => u.Email).IsUnique();
+            entity.Property(u => u.PasswordHash).IsRequired();
+            entity.Property(u => u.Role).IsRequired().HasMaxLength(20);
         });
 
         // Seed data
@@ -73,6 +86,31 @@ public class ApplicationDbContext : DbContext
                 Salary = 85000,
                 HireDate = new DateTime(2019, 6, 10),
                 IsActive = true
+            }
+        );
+
+        // User seed data (Day 10: JWT Authentication)
+        // Password for both users is "Password123!" (hashed with BCrypt)
+        modelBuilder.Entity<User>().HasData(
+            new User
+            {
+                Id = 1,
+                Username = "admin",
+                Email = "admin@company.com",
+                PasswordHash = "$2a$11$BczJ7KhXrF.rWEn8/aBY8.pjVS6KhUbG5xkTZJCZq6FRqXMPvMH7K", // Password123!
+                Role = "Admin",
+                IsActive = true,
+                CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new User
+            {
+                Id = 2,
+                Username = "user",
+                Email = "user@company.com",
+                PasswordHash = "$2a$11$BczJ7KhXrF.rWEn8/aBY8.pjVS6KhUbG5xkTZJCZq6FRqXMPvMH7K", // Password123!
+                Role = "User",
+                IsActive = true,
+                CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc)
             }
         );
     }
