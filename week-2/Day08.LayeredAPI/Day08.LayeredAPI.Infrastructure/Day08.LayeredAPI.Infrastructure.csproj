@@ -5,6 +5,10 @@
     <ProjectReference Include="..\Day08.LayeredAPI.Application\Day08.LayeredAPI.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.11" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>

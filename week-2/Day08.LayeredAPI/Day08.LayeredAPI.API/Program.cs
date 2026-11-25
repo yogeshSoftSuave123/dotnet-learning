@@ -2,18 +2,24 @@ using Day08.LayeredAPI.API.Middleware;
 using Day08.LayeredAPI.Application.Interfaces;
 using Day08.LayeredAPI.Application.Services;
 using Day08.LayeredAPI.Infrastructure.Repositories;
+using Day08.LayeredAPI.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container
 builder.Services.AddControllers();
 
+// Register DbContext (Day 09: EF Core)
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 // Register Application Services (Scoped - per request)
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 
-// Register Infrastructure Repositories (Scoped - per request)
-builder.Services.AddScoped<IEmployeeRepository, InMemoryEmployeeRepository>();
-builder.Services.AddScoped<IDepartmentRepository, InMemoryDepartmentRepository>();
+// Register EF Core Repositories (Day 09)
+builder.Services.AddScoped<IEmployeeRepository, EfEmployeeRepository>();
+builder.Services.AddScoped<IDepartmentRepository, EfDepartmentRepository>();
 
 // Swagger/OpenAPI
 builder.Services.AddEndpointsApiExplorer();
@@ -22,8 +28,8 @@ builder.Services.AddSwaggerGen(options =>
     options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
     {
         Version = "v1",
-        Title = "Employee Management API - Layered Architecture",
-        Description = "Day 08: Layered architecture with validation and exception handling"
+        Title = "Employee Management API - with EF Core",
+        Description = "Days 08-09: Layered architecture with EF Core database"
     });
 });
 
